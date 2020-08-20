@@ -1,27 +1,28 @@
-
 import org.apache.log4j.Logger;
 import performer.Move;
 
 import static entity.Direction.*;
 import static entity.Part.*;
-import static entity.Part.TOP_ARM;
-
 
 public class RobotHandEthernetClientMain {
 
     private static final Logger logger = Logger.getLogger(RobotHandEthernetClientMain.class);
 
     /*
-    * http://10.0.0.60/baseXleftY300Z
-    * */
+     * This project was created to simplify control of robotic arm based on arduino
+     * */
 
     public static void main(String[] args) {
 
         logger.info("Starting");
 
         grabItem(false);
-        sleep(1000);
-        grabItem(true);
+        moveItemToTop(false);
+        releaseItem(false);
+//
+//        releaseItem(true);
+//        moveItemToTop(true);
+//        grabItem(true);
 
     }
 
@@ -41,29 +42,26 @@ public class RobotHandEthernetClientMain {
         Move.perform(HAND, GRAB, 75, reversed);
         Move.perform(HAND, GRAB, 15, reversed);
     }
-//    public static void moveItemToTop(){
-//
-//        getHTML("http://10.0.0.60/topArmXbackwardsY60Z");
-//        getHTML("http://10.0.0.60/bottomArmXbackwardsY70Z");
-//        getHTML("http://10.0.0.60/topArmXforwardY30Z");
-//        getHTML("http://10.0.0.60/bottomArmXbackwardsY20Z");
-//        getHTML("http://10.0.0.60/baseXleftY210Z");
-//    }
-//
 
-//
-//    public static void releaseItem(){
-//
-//        getHTML("http://10.0.0.60/baseXleftY210Z");
-//        //getHTML("http://10.0.0.60/topArmXforwardY60Z");
-//        getHTML("http://10.0.0.60/bottomArmXforwardY60Z");
-//        getHTML("http://10.0.0.60/topArmXforwardY30Z");
-//        //getHTML("http://10.0.0.60/bottomArmXbackwardsY20Z");
-//        getHTML("http://10.0.0.60/handXreleaseY150Z");
-//        getHTML("http://10.0.0.60/handXreleaseY15Z");
-//
-//    }
+    public static void moveItemToTop(boolean r) {
+        Move.perform(TOP_ARM, BACKWARDS, 60, r);
+        Move.perform(BOTTOM_ARM, BACKWARDS, 70, r);
+        Move.perform(TOP_ARM, FORWARD, 30, r);
+        Move.perform(BOTTOM_ARM, BACKWARDS, 20, r);
+        Move.perform(BASE, LEFT, 210, r);
+    }
 
+    public static void releaseItem(boolean r) {
+
+        Move.perform(BASE, LEFT, 210, r);
+        //Move.perform(TOP_ARM, FORWARD, 60, false);
+        Move.perform(BOTTOM_ARM, FORWARD, 60, false);
+        Move.perform(TOP_ARM, FORWARD, 30, false);
+        Move.perform(BOTTOM_ARM, BACKWARDS, 20, false);
+        Move.perform(HAND, RELEASE, 150, false);
+        Move.perform(HAND, RELEASE, 10, false);
+
+    }
 
     public static void sleep(int millis){
         try {

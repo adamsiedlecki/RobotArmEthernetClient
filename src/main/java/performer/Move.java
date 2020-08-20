@@ -18,7 +18,8 @@ public class Move {
         if(reversed){
             newDirection = dir.getOpposite();
         }
-        url = "http://"+Config.ADDRESS+"/"+part.getName()+"X"+newDirection.getName()+"Y"+angleChange+"Z";
+        url = "http://" + Config.ADDRESS + "/" + part.getName() + "X" + newDirection.getName() + "Y" + angleChange + "Z";
+        sleep(Config.SLEEP_AFTER_MOVE_MILLIS);
         HttpGet.getHTML(url);
         logger.info("HTTP GET "+url);
     }
@@ -29,14 +30,22 @@ public class Move {
             logger.warn("grab and release are only for hand");
             return;
         }
-        if(part==Part.HAND){
-            if(dir!=Direction.GRAB){
-                if(dir!=Direction.RELEASE){
+        if (part == Part.HAND) {
+            if (dir != Direction.GRAB) {
+                if (dir != Direction.RELEASE) {
                     // hand can only grab or release
                     logger.warn("hand can only grab or release");
                     return;
                 }
             }
+        }
+    }
+
+    private static void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
