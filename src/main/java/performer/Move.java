@@ -5,6 +5,7 @@ import entity.Direction;
 import entity.Part;
 import http.HttpGet;
 import org.apache.log4j.Logger;
+import tools.SoundPlayer;
 
 
 public class Move {
@@ -32,6 +33,10 @@ public class Move {
 
     public void perform() {
         checkCaseOfIllegalAction(part, dir);
+
+        SoundPlayer player = new SoundPlayer();
+        player.playBleep();
+
         HttpGet.getHTML(url);
         sleep(Config.SLEEP_AFTER_MOVE_MILLIS);
         logger.info("HTTP GET " + url);
@@ -48,7 +53,6 @@ public class Move {
                 if (dir != Direction.RELEASE) {
                     // hand can only grab or release
                     logger.warn("hand can only grab or release");
-                    return;
                 }
             }
         }

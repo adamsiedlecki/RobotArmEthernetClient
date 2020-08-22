@@ -1,5 +1,6 @@
 import org.apache.log4j.Logger;
 import performer.Move;
+import performer.MoveBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +15,7 @@ public class RobotHandEthernetClientMain {
 
     /*
      * This project was created to simplify control of robotic arm based on arduino
+     * https://www.youtube.com/watch?v=AHa7NjG6lao
      * */
 
     public static void main(String[] args) {
@@ -66,15 +68,18 @@ public class RobotHandEthernetClientMain {
     }
 
     public static void releaseItem(boolean r) {
+        List<Move> moveList = new ArrayList<>();
 
-        Move m1 = new Move(BASE, LEFT, 210, r);
-        Move m2 = new Move(BOTTOM_ARM, FORWARD, 60, r);
-        Move m3 = new Move(TOP_ARM, FORWARD, 30, r);
-        Move m4 = new Move(BOTTOM_ARM, BACKWARDS, 20, r);
-        Move m5 = new Move(HAND, RELEASE, 150, r);
-        Move m6 = new Move(HAND, RELEASE, 10, r);
+        MoveBuilder moveBuilder = new MoveBuilder();
 
-        List<Move> moveList = new ArrayList<>(List.of(m1, m2, m3, m4, m5, m6));
+        moveBuilder.createMoveAndAddToList(BASE, LEFT, 210, r, moveList);
+        moveBuilder.createMoveAndAddToList(BOTTOM_ARM, FORWARD, 60, r, moveList);
+        moveBuilder.createMoveAndAddToList(TOP_ARM, FORWARD, 30, r, moveList);
+        //moveBuilder.createMoveAndAddToList(BOTTOM_ARM, BACKWARDS, 20, r, moveList);
+        moveBuilder.createMoveAndAddToList(HAND, RELEASE, 150, r, moveList);
+        moveBuilder.createMoveAndAddToList(HAND, RELEASE, 10, r, moveList);
+
+
         if (r) {
             Collections.reverse(moveList);
         }
