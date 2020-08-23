@@ -17,7 +17,7 @@ public class Move {
     private final boolean reversed;
     private final String url;
 
-    public Move(Part part, Direction dir, int angleChange, boolean reversed) {
+    public Move(Part part, Direction dir, int angleChange, int moveDelay, boolean reversed) {
         this.part = part;
         this.dir = dir;
         this.angleChange = angleChange;
@@ -28,7 +28,7 @@ public class Move {
             newDirection = dir.getOpposite();
         }
 
-        url = "http://" + Config.ADDRESS + "/" + part.getName() + "X" + newDirection.getName() + "Y" + angleChange + "Z";
+        url = "http://" + Config.ADDRESS + "/" + part.getName() + "X" + newDirection.getName() + "Y" + angleChange + "Z" + moveDelay + "D";
     }
 
     public void perform() {

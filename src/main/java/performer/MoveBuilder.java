@@ -7,8 +7,15 @@ import java.util.List;
 
 public class MoveBuilder {
 
-    public List<Move> createMoveAndAddToList(Part part, Direction dir, int angleChange, boolean reversed, List<Move> list) {
-        list.add(new Move(part, dir, angleChange, reversed));
-        return list;
+    public void createMoveAndAddToList(Part part, Direction dir, int angleChange, boolean reversed, List<Move> list) {
+        int moveDelay = 0;
+
+        if (part == Part.BOTTOM_ARM) {
+            moveDelay = 20;
+        } else if (part == Part.TOP_ARM) {
+            moveDelay = 40;
+        }
+
+        list.add(new Move(part, dir, angleChange, moveDelay, reversed));
     }
 }

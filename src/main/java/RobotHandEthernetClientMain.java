@@ -33,16 +33,18 @@ public class RobotHandEthernetClientMain {
     }
 
     public static void grabItem(boolean reversed) {
-        Move m1 = new Move(BASE, RIGHT, 210, reversed);
-        Move m2 = new Move(TOP_ARM, FORWARD, 60, reversed);
-        Move m3 = new Move(BOTTOM_ARM, FORWARD, 70, reversed);
-        Move m4 = new Move(TOP_ARM, BACKWARDS, 50, reversed);
-        Move m5 = new Move(BOTTOM_ARM, FORWARD, 20, reversed);
-        Move m6 = new Move(HAND, GRAB, 75, reversed);
-        Move m7 = new Move(HAND, GRAB, 75, reversed);
-        Move m8 = new Move(HAND, GRAB, 15, reversed);
+        List<Move> moveList = new ArrayList<>();
+        MoveBuilder moveBuilder = new MoveBuilder();
 
-        List<Move> moveList = new ArrayList<>(List.of(m1, m2, m3, m4, m5, m6, m7, m8));
+        moveBuilder.createMoveAndAddToList(BASE, RIGHT, 210, reversed, moveList);
+        moveBuilder.createMoveAndAddToList(TOP_ARM, FORWARD, 60, reversed, moveList);
+        moveBuilder.createMoveAndAddToList(BOTTOM_ARM, FORWARD, 70, reversed, moveList);
+        moveBuilder.createMoveAndAddToList(TOP_ARM, BACKWARDS, 50, reversed, moveList);
+        moveBuilder.createMoveAndAddToList(BOTTOM_ARM, FORWARD, 20, reversed, moveList);
+        moveBuilder.createMoveAndAddToList(HAND, GRAB, 75, reversed, moveList);
+        moveBuilder.createMoveAndAddToList(HAND, GRAB, 75, reversed, moveList);
+        moveBuilder.createMoveAndAddToList(HAND, GRAB, 15, reversed, moveList);
+
         if (reversed) {
             Collections.reverse(moveList);
         }
@@ -52,13 +54,15 @@ public class RobotHandEthernetClientMain {
     }
 
     public static void moveItemToTop(boolean r) {
-        Move m1 = new Move(TOP_ARM, BACKWARDS, 60, r);
-        Move m2 = new Move(BOTTOM_ARM, BACKWARDS, 70, r);
-        Move m3 = new Move(TOP_ARM, FORWARD, 30, r);
-        Move m4 = new Move(BOTTOM_ARM, BACKWARDS, 20, r);
-        Move m5 = new Move(BASE, LEFT, 210, r);
+        List<Move> moveList = new ArrayList<>();
+        MoveBuilder moveBuilder = new MoveBuilder();
 
-        List<Move> moveList = new ArrayList<>(List.of(m1, m2, m3, m4, m5));
+        moveBuilder.createMoveAndAddToList(TOP_ARM, BACKWARDS, 60, r, moveList);
+        moveBuilder.createMoveAndAddToList(BOTTOM_ARM, BACKWARDS, 70, r, moveList);
+        moveBuilder.createMoveAndAddToList(TOP_ARM, FORWARD, 30, r, moveList);
+        moveBuilder.createMoveAndAddToList(BOTTOM_ARM, BACKWARDS, 20, r, moveList);
+        moveBuilder.createMoveAndAddToList(BASE, LEFT, 210, r, moveList);
+
         if (r) {
             Collections.reverse(moveList);
         }
