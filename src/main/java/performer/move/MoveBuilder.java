@@ -1,4 +1,4 @@
-package performer;
+package performer.move;
 
 import entity.Direction;
 import entity.Part;
@@ -14,6 +14,8 @@ public class MoveBuilder {
             moveDelay = 20;
         } else if (part == Part.TOP_ARM) {
             moveDelay = 40;
+        } else if (part == Part.BASE) {
+            moveDelay = 10;
         }
 
         list.add(new Move(part, dir, angleChange, moveDelay, reversed));

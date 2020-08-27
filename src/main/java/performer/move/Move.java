@@ -1,4 +1,4 @@
-package performer;
+package performer.move;
 
 import config.Config;
 import entity.Direction;
